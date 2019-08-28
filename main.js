@@ -22,7 +22,7 @@ const pies = [
     {
     pieName: 'Shoefly',
     image: 'https://static01.nyt.com/images/2016/09/27/dining/27COOKING-SHOOFLY-PIE2/27COOKING-SHOOFLY-PIE2-articleLarge.jpg',
-    instructorName: 'Callan'
+    instructorName: 'callan'
     },
 
     {
@@ -40,11 +40,12 @@ const pies = [
 ];
 
 const printToDom = (toPrint, divId) => {
-    document.getElementById(divId).innerHTML += toPrint;
+    document.getElementById(divId).innerHTML = toPrint;
     
 }
 
 const pieBuilder = (piesArray) => {
+    let domString = ''
     for (let i = 0; i < piesArray.length; i++) {
         const pies = piesArray[i];
         const domString = `
@@ -53,8 +54,26 @@ const pieBuilder = (piesArray) => {
             <img src=${pies.image} alt='Image of ${pies.pieName}' />
         </div>
         `
-        printToDom(domString, 'pie-zone')
+        
     }
+    printToDom(domString, 'pie-zone')
 }
 
-pieBuilder(pies);
+document.getElementById('zoe').addEventListener('click', (e) => {
+// figure out WHO this instructor is for the button we clicked on
+const instructor = e.target.id
+// only get those pies from the list of all the pies
+const selectedPies = []
+for (let i = 0; i < pies.length; i++) {
+    const pie = pies[i]
+    if (pie.instructorName === instructor) {
+        selectedPies.push(pie)
+    }
+    }
+    pieBuilder(selectedPies)
+
+})
+
+
+
+// pieBuilder(pies);
